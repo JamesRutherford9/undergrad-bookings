@@ -1,0 +1,69 @@
+{% extends "roombooking/base.html" %}
+{% load static %}
+{% block head_css_page %}
+<link rel="stylesheet" href="{% static 'roombooking/styles/view_todays_bookings.css' %}">
+{% endblock head_css_page %}
+
+{% block title %}Today's Bookings{% endblock title %}
+
+{% block content %}
+
+<h1><u>Today's Bookings</u></h1>
+{% if upcoming %}
+<h2>Upcoming</h2>
+
+<ul class="upcoming_list">
+    {% for booking in upcoming %}
+        <a href="{% url 'roombooking:viewbooking' booking.id %}"><ul class="internal_list">
+            <li>Meeting Title: {{booking.title}}</li>
+            <li>Room: {{booking.room}}</li>
+            <li>Start Time: {{booking.get_startTime_display}}</li>
+            <li>End Time: {{booking.get_end_time}}</li>
+            <li>Meeting Length: {{booking.get_length_display}}</li>
+            <li class="upcoming">Status: {{booking.get_status}}</li>
+        </ul></a>
+        <br>
+    {% endfor %}
+</ul>
+<hr/>
+{% endif %}
+
+{% if ongoing %}
+<h2>Ongoing</h2>
+
+<ul class="ongoing_list">
+    {% for booking in ongoing %}
+        <a href="{% url 'roombooking:specificbookingtoday' booking.id %}"><ul class="internal_list">
+            <li>Meeting Title: {{booking.title}}</li>
+            <li>Room: {{booking.room}}</li>
+            <li>Start Time: {{booking.get_startTime_display}}</li>
+            <li>End Time: {{booking.get_end_time}}</li>
+            <li>Meeting Length: {{booking.get_length_display}}</li>
+            <li class="ongoing">Status: {{booking.get_status}}</li>
+        </ul></a>
+        <br>
+    {% endfor %}
+</ul>
+<hr/>
+{% endif %}
+
+{% if finished %}
+<h2>Finished</h2>
+
+<ul class="finished_list">
+    {% for booking in finished %}
+        <a href="{% url 'roombooking:viewbooking' booking.id %}"><ul class="internal_list">
+            <li>Meeting Title: {{booking.title}}</li>
+            <li>Room: {{booking.room}}</li>
+            <li>Start Time: {{booking.get_startTime_display}}</li>
+            <li>End Time: {{booking.get_end_time}}</li>
+            <li>Meeting Length: {{booking.get_length_display}}</li>
+            <li class="finished">Status: {{booking.get_status}}</li>
+        </ul></a>
+        <br>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+{% endblock content %}

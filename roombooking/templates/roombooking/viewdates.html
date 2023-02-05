@@ -1,0 +1,90 @@
+{% extends "roombooking/base.html" %}
+
+{% load static %}
+
+{% block head_css_page %}
+<link rel="stylesheet" href="{% static 'roombooking/view_dates_style.css' %}">
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+$( function() {
+    $( "#datepicker" ).datepicker({
+        dateFormat:'yy-mm-dd'
+    });
+});
+</script>
+
+{% endblock head_css_page %}
+
+{% block title %}View Dates{% endblock title %}
+
+{% block content %}
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {# <script>alert('{{ message }}')</script> #}
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <script>
+        var rooms =  "{{rooms_json|escapejs}}";
+        var user_bookings = "{{user_bookings_json|escapejs}}";
+        var other_bookings = "{{date_bookings_no_user_json|escapejs}}";
+    </script>
+
+    <script>
+        const queryString = window.location.pathname;
+        console.log("URLParams" + queryString);
+        var paths = queryString.split("/");
+        const building_id = paths[3];
+        const date = paths[4];
+        console.log(building_id);
+        console.log(date);
+    </script>
+
+    <script type="text/javascript">
+        var CSRF_TOKEN = "{{ csrf_token }}";
+    </script>
+
+    <h1><u>View Bookings Page</u></h1>
+    <p>View booking details.</p>
+
+    <div class="date_select">
+        <form method="post" id="getdate">
+            {% csrf_token %}
+            <ul class="dateChoices">
+                {{date_select_form.as_ul}}
+            </ul>
+
+            <input type="hidden" name="date_select_submit" value="Submit['']">
+
+            {# <input type="submit" name="date_select_submit" value="Submit" > #}
+        </form>
+    </div>
+
+    {% if set %}
+
+    <div class="room_grid">
+        <h2>Rooms Selection</h2>
+
+        <table id="room_date_table">
+
+            <script src="{% static 'roombooking/js/table.js' %}" type="text/javascript"></script>
+ 
+            <tbody id="table_contents">
+                
+                <script src="{% static 'roombooking/js/table_content.js' %}" type="text/javascript"></script>
+
+            </tbody>
+        </table>
+    </div>
+
+    {% endif %}
+
+{% endblock content %}

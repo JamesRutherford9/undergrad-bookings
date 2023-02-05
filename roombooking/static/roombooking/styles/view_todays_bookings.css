@@ -1,0 +1,87 @@
+/* Finished List */
+ul.finished_list {
+    list-style-type: none;
+}
+
+ul.finished_list a {
+    display: block;
+    background-color: gray;
+    width: 50%;
+    text-decoration: none;
+    color: black;
+    font-size: 110%;
+}
+
+ul.finished_list a:hover {
+    background-color: rgb(56, 56, 56);
+    color: white;
+}
+
+ul.finished_list li:first-child {
+    padding-top: 10px;
+}
+
+ul.finished_list li:last-child {
+    padding-bottom: 10px;
+}
+
+/* Ongoing List */
+ul.ongoing_list {
+    list-style-type: none;
+}
+
+ul.ongoing_list a {
+    display: block;
+    background-color: green;
+    width: 50%;
+    text-decoration: none;
+    color: black;
+    font-size: 110%;
+}
+
+ul.ongoing_list a:hover {
+    background-color: darkgreen;
+    color: white;
+}
+
+ul.ongoing_list li:first-child {
+    padding-top: 10px;
+}
+
+ul.ongoing_list li:last-child {
+    padding-bottom: 10px;
+}
+
+/* Upcoming List */
+ul.upcoming_list {
+    list-style-type: none;
+}
+
+ul.upcoming_list a {
+    display: block;
+    background-color: rgb(161, 70, 70);
+    width: 50%;
+    text-decoration: none;
+    color: black;
+    font-size: 110%;
+}
+
+ul.upcoming_list a:hover {
+    background-color: rgb(253, 0, 0);
+    color: white;
+}
+
+ul.upcoming_list li:first-child {
+    padding-top: 10px;
+}
+
+ul.upcoming_list li:last-child {
+    padding-bottom: 10px;
+}
+
+
+/* General */
+
+ul.internal_list {
+    list-style-type: none;
+}

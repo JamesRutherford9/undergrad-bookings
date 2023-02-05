@@ -1,0 +1,110 @@
+{% extends "roombooking/base.html" %}
+
+{% load static %}
+{% block head_css_page %}
+<link rel="stylesheet" href="{% static 'roombooking/create_booking_style.css' %}">
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+    $( "#datepicker" ).datepicker({dateFormat:'yy-mm-dd'});
+} );
+</script>
+{% endblock head_css_page %}
+
+{% block title %}Edit Booking Page{% endblock title %}
+
+{% block content %}
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {# <script>alert('{{ message }}')</script> #}
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<h1><u>Edit Booking Form</u></h1>
+
+<P>Edit the booking form.</P>
+
+<h2>Booking Choices</h2>
+
+<form method="post" id="formBooking">
+    {% csrf_token %}
+    <ul class="choicelist">
+        {{booking_form.as_ul}}
+    </ul>
+
+    <input type="submit" name="booking_submit" value="Submit">
+</form>
+
+<hr>
+<h2>Extras</h2>
+
+<div id="extra_section">
+    <table class="extraTable">
+        <tr>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Timing</th>
+        </tr>
+
+        {% for extra in extra_list %}
+        <tr>
+            <td>{{extra.extra.get_extra_type_display}}</td>
+            <td>{{extra.extra.name}}</td>
+            <td>{{extra.extra.price}}</td>
+            <td>{{extra.quantity}}</td>
+            <td>{{extra.timing|time:"H:i"}}</td>
+            <td class="extra_removal">
+                <form method="post" id="removeExtra">
+                    {% csrf_token %}
+                    <input type="hidden" name="extraID" value={{extra.id}}>
+                    <input type="hidden" name="extra_id" value={{extra.extra.id}}>
+                    <input type="hidden" name="extra_quantity" value={{extra.quantity}}>
+                    <input type="hidden" name="extra_timing" value={{extra.timing|time:"H:i:s"}}>
+                    <input type="submit" name="remove_extra" value=" ">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <form method="post" id="formExtra">
+        {% csrf_token %}
+
+        <ul class="choicelist">
+            {{extra_form.as_ul}}
+        </ul>
+        
+        <input type="submit" name="extra_submit" value="Add">
+    </form>
+
+    <hr>
+
+    <h2> Delete Booking Options </h2>
+
+    <ul>
+        <li>
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" name="true_delete" value="Full Deletion">
+            </form>
+        </li>
+        <li>
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" name="delete_btn" value="Partial Delete">
+            </form>
+        </li>
+    </ul>
+
+</div>
+
+{% endblock content %}

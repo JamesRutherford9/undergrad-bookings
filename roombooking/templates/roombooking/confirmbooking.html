@@ -1,0 +1,55 @@
+{% extends "roombooking/base.html" %}
+
+{% block title %}Confirm{% endblock title %}
+
+{% block content %}
+
+<h1><u>Confirm Booking</u></h1>
+
+<P>The booking has been created with the following information.</P>
+
+<h2>Booking Information</h2>
+
+<ul>
+    <li>Date: {{booking.date}}</li>
+    <li>Time: {{booking.get_startTime_display}}</li>
+    <li>Duration: {{booking.get_length_display}}</li>
+    <li>Room: {{booking.room}}</li>
+    <li>Attendee Number: {{booking.attendees}}</li>
+</ul>
+
+<h2>Booking Extras</h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Timing</th>
+    </tr>
+    {% for e in extras %}
+    <tr>
+        <td>{{e.extra.name}}</td>
+        <td>{{e.extra.price}}</td>
+        <td>{{e.quantity}}</td>
+        <td>{{e.timing}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<br>
+<br>
+
+<h2>Price Information</h2>
+<ul>
+    <li>Room Price: {{ costs.roomPrice }}</li>
+    <li>Extra Price: {{ costs.extraPrice }}</li>
+    <li>Total Price: {{ costs.get_total_cost }}</li>
+</ul>
+
+<br>
+<br>
+<form>
+    <input type="submit" name="continue_booking" value="Continue">
+    <input type="submit" name="edit_booking" value="Edit">
+</form>
+
+{% endblock content %}

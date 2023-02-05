@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    {# Head Elements #}
+    <head>
+        <title>
+            {% block title %} Home {% endblock title %} | Booking
+        </title>
+        {% block head_favicon %}
+            <link rel="icon" type="image/png"
+                  href=" {% static 'roombooking/images/light-logo.png' %} ">
+        {% endblock head_favicon %}
+
+        {% block head_meta %}
+            {% block head_meta_charset %}
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            {% endblock head_meta_charset %}
+            {% block head_meta_viewport %}
+                <meta name="viewport"
+                      content="width=device-width, initial-scale=1.0">
+            {% endblock head_meta_viewport %}
+        {% endblock head_meta %}
+        
+        {% block head_css %}
+            {% block head_css_site %}
+                <link href="{% static 'roombooking/style.css' %}"
+                      rel="stylesheet" media="screen">
+            {% endblock head_css_site %}
+            {% block head_css_section %}{% endblock head_css_section %}
+            {% block head_css_page %}{% endblock head_css_page %}
+        {% endblock head_css %}
+    </head>
+    
+    <body>
+        
+    {# Navigation Menu #}
+    <header>
+        <div class="top-navbar {% block nav-style %}{% endblock %}"></div>
+        <ul class="logbar">
+        {% if user.is_authenticated %}
+            <li class="logbtn"><a href="{% url 'roombooking:logout' %}">Logout</a></li>
+            <li class="logbtn"><a href="{% url 'roombooking:profile' %}">Edit Profile</a></li>
+        {% else %}
+            <li class="logbtn"><a href="{% url 'roombooking:login' %}">Login</a></li>
+        {% endif %}
+
+        {# Admin Menu #}
+        {% if user.is_staff %}
+            <li class="adminbtn"><a href="{% url 'roombooking:viewbookingsadmin' %}">View All Bookings</a></li>
+            <li class="adminbtn"><a href="{% url 'roombooking:invoices' %}">Invoices</a></li>
+            <li class="adminbtn"><a href="{% url 'roombooking:dailytimeline' %}">Daily Timeline</a></li>
+            <li class="adminbtn"><a href="{% url 'roombooking:uploadform' %}">Upload Form</a></li>
+        {% endif %}
+        </ul>
+        <ul class=sidebar>
+            <li class="sidebtn"><a href="{% url 'roombooking:index' %}">Main</a></li>
+            <li class="sidebtn"><a href="{% url 'roombooking:viewbookings' %}">View Bookings</a></li>
+            <li class="sidebtn"><a href="{% url 'roombooking:viewdates' %}">Create Booking</a></li>
+            <li><hr/></li>
+            <li class="sidebtn"><a href="{% url 'roombooking:chatbot' %}">Chatbot</a></li>
+            <li><hr/></li>
+            <li class="sidebtn"><a href="{% url 'roombooking:todaysbookings' %}">Today's Bookings</a></li> 
+        </ul>
+
+
+
+    </header>
+
+    {# Document Body #}   
+    <div id="site">
+        {% block content %}
+            Base - Appears With Errors
+        {% endblock content %}
+    </div>
+
+    </body>
+</html>

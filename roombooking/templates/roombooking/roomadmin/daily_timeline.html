@@ -1,0 +1,32 @@
+{% extends "roombooking/base.html" %}
+
+{% load static %}
+
+{% block content %}
+<h1><u>Daily Timeline</u></h1>
+
+<h2>Select Building/Site</h2>
+<form method='post'>
+    {% csrf_token %}
+    {{building_form.as_p}}
+    <input type="hidden" name="building_select" value="Submit['']">
+</form>
+
+<h2>Todays's Events</h2>
+
+{% if events %}
+
+    <ul>
+    {% for event in events %}
+        <li>{{event.time|time:"H:i"}} : {{event.event}}</li>
+    {% endfor %}
+    </ul>
+    
+
+{% else %}
+    <p>No events yet for today.</p>
+
+{% endif %}
+
+{% endblock content %}
+

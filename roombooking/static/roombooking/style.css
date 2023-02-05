@@ -1,0 +1,91 @@
+ul.sidebar {
+    list-style-type: none;
+    margin-left: 0%;
+    margin-top: 0%;
+    padding: 0;
+    width: 10%;
+    background-color: #f1f1f1;
+    height: 75%;
+    position: fixed; 
+    overflow: auto;
+  }
+  
+  li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  
+  /* Change the link color on hover */
+  li a:hover {
+    background-color: #555;
+    color: white;
+  }
+
+  ul.logbar{
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      
+      overflow: hidden;
+
+      background-color: #555;
+
+      width: 100%;
+      
+      position: fixed;
+      top: 0;
+
+      height: 5%;
+      
+  }
+
+li.logbtn{
+    float: right;
+}
+
+li.logbtn a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    background-position: 100%;
+}
+
+li.logbtn a:hover {
+    background-color: #111;
+}
+
+li.adminbtn {
+    float: left;
+}
+
+li.adminbtn a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    background-position: 100%;
+}
+
+li.adminbtn a:hover {
+    background-color: #111;
+}
+
+#site {
+    margin-left: 11%;
+    margin-top: 6%;
+}
+
+h1 {
+    color: #000;
+    font-size: 130%;
+}
+
+h2 {
+    text-decoration: underline;
+    font-size: 110%;
+}

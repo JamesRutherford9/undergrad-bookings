@@ -1,0 +1,36 @@
+{% extends "roombooking/base.html" %}
+
+{% load static %}
+
+{% block head_css_page %}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+$( function() {
+    $( ".datepicker" ).datepicker({
+        dateFormat:'yy-mm-dd'
+    });
+});
+</script>
+
+{% endblock head_css_page %}
+
+{% block title %}Invoices{% endblock title %}
+
+{% block content %}
+<h1><u>Invoices</u></h1>
+
+<form method="post" id="dates_form" autocomplete="off">
+    {% csrf_token %}
+    <ul class="choicelist">
+        {{ dates_form.as_ul }}
+    </ul>
+    <input type="submit" name="dates_selected" value="Submit">
+</form>
+
+{% endblock content %}
+
+

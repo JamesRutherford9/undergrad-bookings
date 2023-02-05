@@ -1,0 +1,56 @@
+{% extends "roombooking/base.html" %}
+
+{% load static %}
+
+{% block head_css_page %}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+$( function() {
+    $( ".datepicker" ).datepicker({
+        dateFormat:'yy-mm-dd'
+    });
+});
+</script>
+
+{% endblock head_css_page %}
+
+{% block content %}
+<h1><u>View Bookings Page</u></h1>
+<p>Page to display bookings linked to account.</p>
+
+<h2>Filter Bookings</h2>
+
+<form method="post" autocomplete="off">
+    {% csrf_token %}
+    <ul class="filter_choices">
+        {{filter_form.as_ul}}
+    </ul>
+    <input type="submit" name="form_filter_submit" value="Apply Filters">
+    <input type="submit" name="remove_filters" value="Remove All Filters">
+</form>
+
+
+<ul>
+{% for booking in booking_list %}
+    <li> {{booking.title}} <a href="{% url 'roombooking:adminedit' booking.id %}">
+        <ul>
+            {% if booking.active == False %}
+                <b><li class="inactive" style="color: red;">Booking is Inactive</li></b>
+            {% endif %}
+            <li>User: {{booking.account.get_username}}</li>
+            <li>Date: {{booking.date}}</li>
+            <li>Start Time: {{booking.get_startTime_display}}</li>
+            <li>End Time: {{booking.get_end_time}}</li>
+            <li>Meeting Length: {{booking.get_length_display}}</li>
+            <li>Attendees: {{booking.attendees}}</li>
+            <li>Room: {{booking.room}}</li>
+            <li>Building: {{booking.room.building}}</li>
+        </ul></a>
+    </li>
+{% endfor %}
+</ul>
+{% endblock content %}

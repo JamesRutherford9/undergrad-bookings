@@ -1,0 +1,11 @@
+ul.choicelist {
+    list-style-type: disc;
+}
+
+h2.choicedivider {
+    font-size: medium;
+}
+
+table.extraTable{
+    table-layout: auto;
+}

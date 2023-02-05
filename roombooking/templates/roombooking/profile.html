@@ -1,0 +1,25 @@
+{% extends "roombooking/base.html" %}
+
+{% block content %}
+<h1><u>View Profile Page</u></h1>
+<p>View profile details.</p>
+
+<h2>Account Details</h2>
+
+<ul>
+    <li>Username: {{account.username}}</li>
+    <li>E-Mail: {{account.email}}</li>
+    <li>Company: {{company}}</li>
+    <li>Staff: {{account.is_staff}}</li>
+    <hr>
+    <li>Number of Bookings: {{number_of_bookings}}</li>
+    <li>Finished Bookings: {{finished}}</li>
+    <li>Ongoing Bookings: {{ongoing}}</li>
+    <li>Upcoming Bookings: {{upcoming}}</li>
+
+</ul>
+
+
+
+
+{% endblock content %}

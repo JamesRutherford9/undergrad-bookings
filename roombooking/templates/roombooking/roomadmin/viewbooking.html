@@ -1,0 +1,81 @@
+{% extends "roombooking/base.html" %}
+
+{% block title %}View Bookings{% endblock title %}
+
+{% block content %}
+    <h1><u>View Bookings Page</u></h1>
+    <p>View booking details.</p>
+
+    <h2>Booking Details</h2>
+
+    <ul class="detail_list">
+        <li>User: {{booking.account.get_username}}</li>
+        <li>Meeting Title: {{booking.title}}</li>
+        <li>Date: {{booking.date}}</li>
+        <li>Start Time: {{booking.get_startTime_display}}</li>
+        <li>End Time: {{booking.get_end_time}}</li>
+        <li>Meeting Length: {{booking.get_length_display}}</li>
+        <li>Number of Attendees: {{booking.attendees}}</li>
+        <li>Room: {{booking.room}}</li>
+    </ul>
+
+    <h2>Extras</h2>
+
+    <table class="extraTable">
+        <tr>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Timing</th>
+        </tr>
+
+        {% for extra in extra_list %}
+        <tr>
+            <td>{{extra.extra.get_extra_type_display}}</td>
+            <td>{{extra.extra.name}}</td>
+            <td>{{extra.extra.price}}</td>
+            <td>{{extra.quantity}}</td>
+            <td>{{extra.timing|time:"H:i"}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Price Info</h2>
+    <ul>
+        <li>Room Price: {{ costs.roomPrice }}</li>
+        <li>Extra Price: {{ costs.extraPrice }}</li>
+        <li>Total Price: {{ costs.get_total_cost }}</li>
+    </ul>
+
+    {% if booking.get_status == "Upcoming" %}
+    <ul class="alter_buttons">
+        <li>
+            <form class="edit_button" method="post">
+                {% csrf_token %}
+                <input type="submit" name="edit_btn" value="Edit">
+            </form>
+        </li>
+        <li>
+            <form class="delete_button" method="post">
+                {% csrf_token %}
+                <input type="submit" name="del_btn" value="Delete">
+            </form>
+        </li>
+    </ul>
+
+    {% endif %}
+
+    {% if booking.get_status == "Ongoing" %}
+
+    <p>This booking is currently ongoing.</p>
+
+    {% endif %}
+
+    {% if booking.get_status == "Finished" %}
+
+    <p>This booking has already finished.</p>
+
+    {% endif %}
+
+{% endblock content %}

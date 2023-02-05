@@ -1,0 +1,58 @@
+#room_date_table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    overflow-x: scroll;
+    width: 75%;
+    text-overflow: ellipsis;
+}
+
+th {
+    /*table-layout: fixed;*/
+    border: 1px solid black;
+    width: 50px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    width: 50px;
+    padding: 5px;
+}
+
+.firstcol {
+    position: sticky;
+    width: 5em;
+    top: auto;
+
+    border-top-width: 1xp;
+    margin-top: -1px;
+}
+
+td.taken_cell {
+    background-color: red;
+}
+
+td.user_cell {
+    background-color: green;
+    cursor: pointer;
+}
+
+a.blockbtn {
+    display: block;
+    border: 1px black;
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+input.empty_submit {    
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+

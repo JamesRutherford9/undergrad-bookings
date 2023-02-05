@@ -1,0 +1,58 @@
+{% extends "roombooking/base.html" %}
+{% load static %}
+{% block head_css_page %}
+<link rel="stylesheet" href="{% static 'roombooking/styles/view_specific_booking.css' %}">
+
+{% endblock head_css_page %}
+
+{% block title %}Specific Booking{% endblock title %}
+
+{% block content %}
+
+<h1><u>Specific Booking</u></h1>
+
+<h2>Meeting Title: {{booking.title}}</h2>
+<label class="meeting-info">Room: {{booking.room}}</label><br>
+<label class="meeting-info">Date: {{booking.date}}</label>
+
+<h2>Timeline of Events</h2>
+
+<script>
+    // Vars from django
+    var booking_date = "{{ booking.date }}"
+    var booking_start_time = "{{ booking.get_startTime_display }}"
+    var booking_end_time = "{{ booking.get_end_time }}"
+    var booking_length = "{{ booking.get_length_display }}"
+</script>
+
+
+<label id="passed">Passed: {{time_passed}}</label>
+<br>
+<label id="remaining">Remaining: {{time_left}}</label>
+<br>
+<label id="timeleft">Meeting Completion: {{completion_percent}} %</label>
+
+<div id="progress">
+    <progress id="progress-bar" max="100" value="{{completion_percent}}">{{completion_percent}}</progress>
+    
+
+</div>
+
+<br>
+<br>
+
+{# Events #}
+
+<div class="timeline">
+    {% for event in events_list %}
+    <div class="{% cycle 'container left' 'container right' %}">
+        <div class="content">
+            <h2>{{event.time|time:"H:i"}} : {{event.event}}</h2>
+            <p>{{event.content}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock content %}

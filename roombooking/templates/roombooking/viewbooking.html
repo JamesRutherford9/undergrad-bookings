@@ -1,0 +1,96 @@
+{% extends "roombooking/base.html" %}
+
+{% load static %}
+
+<!-- {% block head_css_page %}
+<link rel="stylesheet" href="{% static 'roombooking/styles/view_booking.css' %}">
+{% endblock head_css_page %} -->
+
+{% block title %}View Bookings{% endblock title %}
+
+{% block content %}
+    <h1><u>View Bookings Page</u></h1>
+    <p>View booking details.</p>
+
+    <h2>Booking Details</h2>
+    {% if booking.active == False %}
+        <b><li class="inactive" style="color: red;">Booking is Inactive</li></b>
+    {% endif %}
+
+    <ul class="detail_list">
+        <li>Meeting Title: {{booking.title}}</li>
+        <li>Date: {{booking.date}}</li>
+        <li>Start Time: {{booking.get_startTime_display}}</li>
+        <li>End Time: {{booking.get_end_time}}</li>
+        <li>Meeting Length: {{booking.get_length_display}}</li>
+        <li>Number of Attendees: {{booking.attendees}}</li>
+        <li>Room: {{booking.room}}</li>
+        <li>Note: {{booking.note}}</li>
+    </ul>
+
+    <hr>
+
+    <h2>Extras</h2>
+
+    <table class="extraTable">
+        <tr>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Timing</th>
+        </tr>
+
+        {% for extra in extra_list %}
+        <tr>
+            <td>{{extra.extra.get_extra_type_display}}</td>
+            <td>{{extra.extra.name}}</td>
+            <td>{{extra.extra.price}}</td>
+            <td>{{extra.quantity}}</td>
+            <td>{{extra.timing|time:"H:i"}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <hr>
+
+    <h2>Price Info</h2>
+    <ul>
+        <li>Room Price: {{ costs.roomPrice }}</li>
+        <li>Extra Price: {{ costs.extraPrice }}</li>
+        <li>Total Price: {{ costs.get_total_cost }}</li>
+    </ul>
+
+    <hr>
+
+
+    <h2>Edit or Delete</h2>
+
+    {% if booking.get_status == "Ongoing" %}
+
+    <p>This booking is currently ongoing.</p>
+
+
+    {% elif booking.get_status == "Finished" %}
+
+    <p>This booking has already finished.</p>
+
+    {% else %}
+    <table class="alter_buttons">
+        <td>
+            <form class="edit_button" method="post">
+                {% csrf_token %}
+                <input type="submit" name="edit_btn" value="Edit">
+            </form>
+        </td>
+        <td>
+            <form class="delete_button" method="post">
+                {% csrf_token %}
+                <input type="submit" name="del_btn" value="Delete">
+            </form>
+        </td>
+    </table>
+
+    {% endif %}
+
+{% endblock content %}
